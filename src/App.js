@@ -19,6 +19,7 @@ import { Container } from "react-bootstrap";
 function App() {
   const [transactions, setTransactions] = useState([]);
   const [netWorthArray, setNetWorthArray] = useState([]);
+  const [todayNetWorth, setTodayNetWorth] = useState();
 
   useEffect(() => {
     axios
@@ -75,6 +76,9 @@ function App() {
         });
 
         setNetWorthArray(allNetWorth);
+        setTodayNetWorth(
+          allNetWorth[allNetWorth.length - 1].net_worth.toFixed(2)
+        );
       })
       .catch(function (error) {
         console.log(error);
@@ -133,6 +137,13 @@ function App() {
           </ResponsiveContainer>
         </div>
       </div>
+      <h3 style={{ marginBottom: "20px" }}>
+        Your net worth today:{" "}
+        <p style={{ fontSize: "10px" }}>
+          I assumed the last item of the array is today
+        </p>
+        <br /> {todayNetWorth} $
+      </h3>
     </div>
   );
 }
